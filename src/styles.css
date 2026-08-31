@@ -1,0 +1,199 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 221.2 83.2% 53.3%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 221.2 83.2% 53.3%;
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 217.2 91.2% 59.8%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 224.3 76.3% 48%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+.app-markdown :where(pre) {
+  @apply bg-markdown-pre-border text-foreground border rounded;
+}
+
+.app-markdown :where(code):not(:where(pre code)) {
+  @apply bg-markdown-inline-border text-foreground border rounded px-1;
+}
+
+/*
+ * @uiw/react-md-editor toolbar fix:
+ * Project CSS is namespaced to #ai_eval_web, so Tailwind Preflight
+ * (#ai_eval_web button { padding: 0; font-size: 100%; ... }) wins over
+ * the editor's unscoped .w-md-editor-toolbar rules and collapses icons.
+ */
+.w-md-editor-toolbar ul,
+.w-md-editor-toolbar li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  line-height: initial;
+}
+
+.w-md-editor-toolbar li {
+  display: inline-block;
+  font-size: 14px;
+  vertical-align: middle;
+}
+
+.w-md-editor-toolbar li > button {
+  box-sizing: border-box;
+  border: none;
+  height: 28px;
+  min-width: 28px;
+  line-height: 14px;
+  background: none;
+  padding: 4px;
+  margin: 0 1px;
+  border-radius: 2px;
+  text-transform: none;
+  font-weight: normal;
+  font-size: 14px;
+  overflow: visible;
+  outline: none;
+  cursor: pointer;
+  white-space: nowrap;
+  color: var(--color-fg-default, #24292f);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.w-md-editor-toolbar li > button svg {
+  width: 12px;
+  height: 12px;
+  display: block;
+  flex-shrink: 0;
+}
+
+.w-md-editor-toolbar-child {
+  display: none;
+}
+
+.w-md-editor-toolbar-child.active {
+  display: block;
+}
+
+.w-md-editor-toolbar-child .w-md-editor-toolbar ul > li {
+  display: block;
+}
+
+.w-md-editor-toolbar-child .w-md-editor-toolbar ul > li button {
+  width: 100%;
+  min-width: 0;
+  height: auto;
+  justify-content: flex-start;
+  padding: 3px 4px 2px;
+  margin: 0;
+}
+
+/*
+ * Cursor misalignment fix:
+ * MDEditor stacks a transparent textarea over a highlighted <pre>.
+ * Namespaced Tailwind Preflight (#ai_eval_web textarea { font-size: 100%;
+ * line-height: inherit }) overrides the textarea metrics while <pre>/code keep
+ * 14px/18px, so the caret drifts. Keep both layers identical.
+ */
+.w-md-editor-text,
+.w-md-editor-text-pre,
+.w-md-editor-text-input,
+.w-md-editor-text > .w-md-editor-text-pre,
+.w-md-editor-text-pre > code {
+  font-family: var(--md-editor-font-family, 'Helvetica Neue', Helvetica, Arial, sans-serif) !important;
+  font-size: 14px !important;
+  line-height: 18px !important;
+  letter-spacing: normal !important;
+  word-spacing: normal !important;
+  tab-size: 2 !important;
+  white-space: pre-wrap !important;
+  word-break: break-word !important;
+}
+
+.w-md-editor-text-pre,
+.w-md-editor-text-pre > code {
+  border: 0 !important;
+  box-shadow: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/*
+ * highlightEnable=false removes the <pre> height strut; textarea is position:absolute
+ * so .w-md-editor-text collapses unless the area/input/text chain is height:100%.
+ */
+.w-md-editor-content,
+.w-md-editor-input,
+.w-md-editor-area {
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.w-md-editor-text {
+  height: 100% !important;
+  min-height: 100% !important;
+  box-sizing: border-box;
+}
+
+.w-md-editor-text-input {
+  position: absolute !important;
+  inset: 0;
+  width: 100% !important;
+  height: 100% !important;
+  resize: none !important;
+  overflow: auto !important;
+  box-sizing: border-box !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  margin: 0 !important;
+  padding: 10px !important;
+}
