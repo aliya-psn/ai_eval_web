@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { getCurrentWorkspace, setCurrentWorkspace } from '@/lib/storage';
+import { getLangfuseProjectMap } from '@/lib/appEnv';
 
 interface NamespaceState {
   /** 当前空间 key，供业务接口使用 */
@@ -14,7 +15,19 @@ interface NamespaceActions {
 
 type NamespaceStore = NamespaceState & NamespaceActions;
 
-const initialWorkspace = getCurrentWorkspace();
+/** 首次进入未选空间时，取 LANGFUSE_PROJECT_MAP 第一个 key 作默认，避免 Public API 401 */
+function resolveInitialWorkspace(): string {
+  const stored = getCurrentWorkspace();
+  if (stored) return stored;
+  const firstKey = Object.keys(getLangfuseProjectMap())[0];
+  if (firstKey) {
+    setCurrentWorkspace(firstKey);
+    return firstKey;
+  }
+  return '';
+}
+
+const initialWorkspace = resolveInitialWorkspace();
 
 export const useNamespaceStore = create<NamespaceStore>((set) => ({
   currentNamespace: initialWorkspace,
