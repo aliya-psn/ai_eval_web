@@ -12,11 +12,6 @@ export type UploadRepoConfig = {
 };
 
 const SupportAppEnv = {
-  /** testinfra-admin 服务地址 */
-  ADMIN_API_BASE: {
-    defaultValue: 'http://192.168.178.116:8080/testinfra-admin', //  'http://192.168.178.234:8086',
-    transformer: (value: string) => value,
-  },
   /** testinfra-experiment-runner 服务地址 */
   EXPERIMENT_RUNNER_API_BASE: {
     defaultValue: 'http://192.168.178.116:8080/testinfra-experiment-runner',
@@ -90,11 +85,6 @@ export function getAppEnv<K extends AppEnvKey>(key: K): string {
   } catch {
     return envConfig.defaultValue;
   }
-}
-
-/** testinfra-admin API base */
-export function getAdminApiBase(): string {
-  return getAppEnv('ADMIN_API_BASE');
 }
 
 /** testinfra-experiment-runner API base */

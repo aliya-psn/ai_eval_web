@@ -4,9 +4,6 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const SpeedMeasurePlugin = require('speed-measure-webpack-plugin');
 const hasha = require('hasha');
-const autoprefixer = require('autoprefixer');
-const cssnano = require('cssnano');
-const namespacePrefix = require('postcss-selector-namespace');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const WebpackBar = require('webpackbar');
 const webpack = require('webpack');
@@ -176,36 +173,27 @@ module.exports = (cliEnv = {}, argv) => {
         'Access-Control-Allow-Methods': '*',
       },
       proxy: {
+        // testinfra-admin 后端
         '/api/admin': {
-          target: 'http://192.168.178.234:8086', // http://192.168.178.116:8080/testinfra-admin
+          target: 'http://192.168.178.116:8080/testinfra-admin',
           changeOrigin: true,
         },
+        // Langfuse NextAuth 登录
+        '/api/auth': {
+          target: 'http://192.168.178.116:8090',
+          changeOrigin: true,
+          cookieDomainRewrite: '',
+        },
+        // Langfuse tRPC
+        '/api/trpc': {
+          target: 'http://192.168.178.116:8090',
+          changeOrigin: true,
+        },
+        // repo制品库上传地址
         '/repo': {
           target: 'http://192.168.182.47:8000',
           changeOrigin: true,
-        },
-        '/v1/auth': {
-          target: 'http://192.168.178.116:8080',
-          changeOrigin: true,
-          pathRewrite: (path) => `/nacos${path}`,
-        },
-        '/v3/auth': {
-          target: 'http://192.168.178.116:8080',
-          changeOrigin: true,
-          pathRewrite: (path) => `/nacos${path}`,
-        },
-        '/v1': {
-          target: 'http://192.168.178.116:8080/nacos',
-          changeOrigin: true,
-        },
-        '/v2': {
-          target: 'http://192.168.178.116:8080/nacos',
-          changeOrigin: true,
-        },
-        '/v3': {
-          target: 'http://192.168.178.116:8080/nacos',
-          changeOrigin: true,
-        },
+        }
       },
     },
     plugins: [

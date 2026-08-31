@@ -1,6 +1,6 @@
 import axios, { type AxiosError } from 'axios';
 import { toast } from 'sonner';
-import { getAdminApiBase, getAdminServerType } from '@/lib/appEnv';
+import { getAdminServerType } from '@/lib/appEnv';
 
 export type AdminHttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
 
@@ -47,7 +47,6 @@ function unwrapAdminResponse<T>(body: unknown): T {
 }
 
 const adminClient = axios.create({
-  baseURL: getAdminApiBase(),
   timeout: 30000,
   headers: {
     'Content-Type': 'application/json',

@@ -50,13 +50,11 @@ export function Sidebar() {
       key: 'ai',
       label: 'AI 注册中心',
       icon: <Bot size={18} />,
-      badge: 'new',
       defaultOpen: true,
       children: [
-        { key: 'skillRegistry', label: 'Skill 管理', path: '/skill', badge: 'new' },
-        { key: 'datasetRegistry', label: '数据集管理', path: '/datasetManagement', badge: 'new' },
-        { key: 'evaluatorRegistry', label: '评测器管理', path: '/evaluatorManagement', badge: 'new' },
-        { key: 'agentRegistry', label: 'Agent 管理', path: '/agentManagement', badge: 'new' },
+        { key: 'skillRegistry', label: 'Skill 管理', path: '/skill' },
+        { key: 'datasetRegistry', label: '数据集管理', path: '/datasetManagement' },
+        { key: 'agentRegistry', label: 'Agent 管理', path: '/agentManagement' },
       ],
     });
   }

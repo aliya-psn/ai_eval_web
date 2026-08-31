@@ -47,36 +47,6 @@ function extractErrorMessage(payload: unknown, fallback: string): string {
   return fallback;
 }
 
-/**
- * 是否为业务错误体。
- * 只认通用错误形态，不依赖具体业务字段。
- */
-function isLangfuseErrorBody(body: unknown): boolean {
-  if (!body || typeof body !== 'object' || Array.isArray(body)) return false;
-  const obj = body as Record<string, unknown>;
-
-  // Public API / Zod：{ message?, error: string | array }
-  const err = obj.error;
-  if (typeof err === 'string' && err) return true;
-  if (Array.isArray(err) && err.length > 0) return true;
-
-  // 网关 / 运行时：{ code, message }，排除成功码
-  if ('code' in obj) {
-    const { code } = obj as { code: string | number };
-    return code !== 200 && code !== '200' && code !== 0 && code !== '0';
-  }
-
-  return false;
-}
-
-/** Langfuse 错误体（HTTP 非 2xx 或业务错误）拦截 */
-function assertLangfuseOk<T>(body: unknown): T {
-  if (isLangfuseErrorBody(body)) {
-    throw new Error(extractErrorMessage(body, '请求失败'));
-  }
-  return body as T;
-}
-
 const langfuseClient = axios.create({
   baseURL: getLangfuseBaseUrl(),
   timeout: 30000,
@@ -90,11 +60,16 @@ const langfuseClient = axios.create({
 langfuseClient.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
     const url = config.url ?? '';
-    if (url.startsWith('/api/public/') && !config.headers.Authorization) {
-      const workspaceKey = getHostWorkspaceKey();
-      const apiKey = getLangfuseApiKey(workspaceKey);
-      if (apiKey) {
-        config.headers.Authorization = `Basic ${encodeUtf8ToBase64(`${apiKey.publicKey}:${apiKey.secretKey}`)}`;
+    if (url.startsWith('/api/public/')) {
+      // Public API 仅用 Basic Auth，不带 session cookie；
+      // 否则浏览器存的过期 next-auth cookie 会被 NextAuth 中间件优先拦截 → 401
+      config.withCredentials = false;
+      if (!config.headers.Authorization) {
+        const workspaceKey = getHostWorkspaceKey();
+        const apiKey = getLangfuseApiKey(workspaceKey);
+        if (apiKey) {
+          config.headers.Authorization = `Basic ${encodeUtf8ToBase64(`${apiKey.publicKey}:${apiKey.secretKey}`)}`;
+        }
       }
     }
     return config;
@@ -117,7 +92,7 @@ langfuseClient.interceptors.response.use(
 );
 
 /**
- * Langfuse Public API 统一入口（axios 直连）。
+ * Langfuse Public API 统一入口。
  */
 export async function langfuseRequest<T>(options: LangfuseRequestOptions): Promise<T> {
   const {
@@ -178,10 +153,10 @@ async function loginLangfuseSession(): Promise<string | null> {
 
   sessionLoading = (async () => {
     try {
-      const base = getLangfuseBaseUrl();
+      // 走相对路径，由 dev server proxy 转发到 Langfuse（同源，避免 CORS + 可读 set-cookie）
       // 1. GET /api/auth/csrf
-      const csrfRes = await fetch(`${base}/api/auth/csrf`, {
-        credentials: 'include',
+      const csrfRes = await fetch(`/api/auth/csrf`, {
+        credentials: 'same-origin',
       });
       if (!csrfRes.ok) return null;
       const csrfData = (await csrfRes.json()) as { csrfToken?: string };
@@ -200,9 +175,9 @@ async function loginLangfuseSession(): Promise<string | null> {
         callbackUrl: '/api/auth/session',
         json: 'true',
       });
-      const loginRes = await fetch(`${base}/api/auth/callback/credentials`, {
+      const loginRes = await fetch(`/api/auth/callback/credentials`, {
         method: 'POST',
-        credentials: 'include',
+        credentials: 'same-origin',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
           Cookie: csrfCookie,
@@ -244,22 +219,38 @@ export async function callLangfuseTrpc<T>(
   },
 ): Promise<T> {
   const method = options?.method ?? 'POST';
-  const body: { json: unknown; meta?: Record<string, unknown> } = { json: input };
-  if (options?.meta) body.meta = options.meta;
+  const inputPayload: { json: unknown; meta?: Record<string, unknown> } = { json: input };
+  if (options?.meta) inputPayload.meta = options.meta;
 
   // 确保 Session Cookie 可用
   const cookie = await loginLangfuseSession();
 
+  const headers: Record<string, string> = {
+    'x-langfuse-trpc-method': method,
+    ...(cookie ? { Cookie: cookie } : {}),
+  };
+
   // 响应拦截器已解包 response.data，此处拿到的是响应体
-  const res: unknown = await langfuseClient.request<unknown>({
-    url: `/api/trpc/${procedure}`,
-    method,
-    data: body,
-    headers: {
-      'x-langfuse-trpc-method': method,
-      ...(cookie ? { Cookie: cookie } : {}),
-    },
-  });
+  let res: unknown;
+  if (method === 'GET') {
+    // tRPC GET：input 序列化为 query parameter（GET 请求不发 body）
+    const query = `?input=${encodeURIComponent(JSON.stringify(inputPayload))}`;
+    res = await langfuseClient.request<unknown>({
+      url: `/api/trpc/${procedure}${query}`,
+      baseURL: '',
+      method: 'GET',
+      headers,
+    });
+  } else {
+    // tRPC POST：input 序列化为 JSON body
+    res = await langfuseClient.request<unknown>({
+      url: `/api/trpc/${procedure}`,
+      baseURL: '',
+      method,
+      data: inputPayload,
+      headers,
+    });
+  }
 
   // tRPC 响应解包：{ result: { data: { json } } } 或 SuperJSON { json }
   let payload = res;

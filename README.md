@@ -1,6 +1,6 @@
 # agent_manage
 
-智能管理 AI 前端（Agent / Skill / Prompt / 数据集 / 评估器）。
+智能管理 AI 前端。
 
 ## 技术栈
 
@@ -25,11 +25,6 @@ yarn build
 
 | 变量 | 说明 |
 |---|---|
-| `ADMIN_API_BASE` | testinfra-admin 服务地址 |
-| `NACOS_BASE_URL` | Nacos 服务地址 |
-| `NACOS_AUTO_LOGIN_USERNAME` | Nacos 免密登录用户名 |
-| `NACOS_AUTO_LOGIN_PASSWORD` | Nacos 免密登录密码 |
-| `NACOS_TOKEN_STORAGE_KEY` | Nacos token 存储 key |
 | `ADMIN_SERVER_TYPE` | 网关类型：`gateway-test` / `gateway` |
 | `LANGFUSE_BASE_URL` | Langfuse 服务地址 |
 | `LANGFUSE_EMAIL` | Langfuse 登录邮箱（tRPC 鉴权） |
@@ -42,7 +37,5 @@ yarn build
 
 - Agent 管理（HTTP Agent / Nacos Agent）
 - Skill 管理（上传 / 编辑 / 版本对比）
-- Prompt 管理
 - 数据集管理（对接 Langfuse）
 - 评估器管理
-- MCP Server 管理

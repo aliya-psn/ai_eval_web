@@ -29,8 +29,6 @@ declare let __webpack_public_path__: string;
 
 declare namespace NodeJS {
   interface ProcessEnv {
-    /** testinfra-admin 真实服务地址 */
-    ADMIN_API_BASE?: string;
     /** testinfra-experiment-runner 真实服务地址 */
     EXPERIMENT_RUNNER_API_BASE?: string;
     /** admin 网关 Server-Type：gateway-test | gateway */
