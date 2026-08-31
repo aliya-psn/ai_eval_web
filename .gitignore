@@ -24,5 +24,4 @@ AGENTS.md
 yarn-error.log
 dev-login.sh
 *.zip
-*.md
 yarn.lock
