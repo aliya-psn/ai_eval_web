@@ -50,7 +50,7 @@ export default function AppLayout() {
             )}
           >
             <Header />
-            <main className={cn('p-6')}>
+            <main className={cn('p-4')}>
               <Outlet />
             </main>
           </div>

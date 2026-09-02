@@ -456,24 +456,26 @@ export default function DatasetManagementPage() {
           </Button>
         </div>
 
-        <Table<DatasetListRow>
-          rowKey="id"
-          loading={loading}
-          columns={columns}
-          dataSource={tableData}
-          scroll={{ x: 1800 }}
-          pagination={{
-            current: page,
-            pageSize,
-            total: filtered.length,
-            showSizeChanger: true,
-            showTotal: (count) => `共 ${count} 条`,
-            onChange: (nextPage, nextSize) => {
-              setPage(nextPage);
-              setPageSize(nextSize);
-            },
-          }}
-        />
+        <div className="rounded-xl bg-white shadow-sm overflow-hidden border border-slate-200/60">
+          <Table<DatasetListRow>
+            rowKey="id"
+            loading={loading}
+            columns={columns}
+            dataSource={tableData}
+            scroll={{ x: 1800 }}
+            pagination={{
+              current: page,
+              pageSize,
+              total: filtered.length,
+              showSizeChanger: true,
+              showTotal: (count) => `共 ${count} 条`,
+              onChange: (nextPage, nextSize) => {
+                setPage(nextPage);
+                setPageSize(nextSize);
+              },
+            }}
+          />
+        </div>
 
         <Modal
           title={editing ? "编辑数据集" : "新建数据集"}

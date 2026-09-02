@@ -61,42 +61,25 @@ export function CliCommandCard({ commands, className, onDownload, downloadFileNa
             <div className="space-y-2">
               <p className="text-xs font-medium text-foreground flex items-center gap-1.5">
                 CLI 安装
-                <a
-                  href="https://github.com/nacos-group/nacos-cli"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-0.5 text-[11px] text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  CLI 使用文档
-                  <ExternalLink className="h-3 w-3" />
-                </a>
-              </p>
+              </p >
               {commands.map((cmd, idx) => (
                 <CommandBlock key={idx} command={cmd.command} />
               ))}
               <div className="rounded-md border border-amber-200 bg-amber-50 dark:border-amber-500/30 dark:bg-amber-500/10 px-3 py-2.5 space-y-2">
                 <p className="text-left text-[11px] font-medium text-amber-800 dark:text-amber-300">
                   执行失败时请逐一检查
-                </p>
+                </p >
                 <div>
                   <p className="text-left text-[11px] leading-relaxed text-amber-800/90 dark:text-amber-300/90">
-                    npx 是否可用：
-                  </p>
+                    npx 是否可用，若未通过安装 Node.js 并执行：
+                  </p >
                   <PrereqCommand command="npx -v" className="mt-1" />
+                  <PrereqCommand command="npm install -g npx" className="mt-1" />
                 </div>
-                <div>
-                  <p className="text-left text-[11px] leading-relaxed text-amber-800/90 dark:text-amber-300/90">
-                    镜像源是否为内网源：
-                  </p>
-                  <PrereqCommand command="npm config get registry" className="mt-1" />
-                </div>
-                <p className="text-left text-[11px] leading-relaxed text-amber-800/90 dark:text-amber-300/90">
-                  若未通过，安装 Node.js 并执行：
-                </p>
-                <div className="space-y-1.5">
-                  <PrereqCommand command="npm install -g npx" />
-                  <PrereqCommand command="npm config set registry http://192.168.154.101:8081/repository/npm_swhysc/" />
-                </div>
+                <p className="text-left text-[11px] font-medium text-amber-800 dark:text-amber-300">
+                  安装 cli 包命令：
+                </p >
+                <PrereqCommand command="npm install @testinfra-ai-group/cli@0.0.1 --registry https://devops.swhysc.com:8081/repo/api/npm/swhysc_npm/" />
               </div>
             </div>
           </>

@@ -7,17 +7,17 @@
   --agent-ink: #091940;
   --agent-ink-soft: rgba(9, 25, 64, 0.72);
   --agent-ink-mute: rgba(9, 25, 64, 0.48);
-  --agent-line: #dadde3;
-  --agent-line-soft: #f1f2f4;
-  --agent-bg: transparent;
+  --agent-line: #e2e8f0;
+  --agent-line-soft: #f1f5f9;
+  --agent-bg: #f8fafc;
   --agent-surface: #ffffff;
-  --agent-radius: 4px;
-  --agent-radius-sm: 2px;
-  --agent-shadow: none;
-  --agent-shadow-hover: none;
+  --agent-radius: 8px;
+  --agent-radius-sm: 4px;
+  --agent-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+  --agent-shadow-hover: 0 2px 8px rgba(15, 23, 42, 0.06);
 
   min-height: 100%;
-  background: transparent;
+  background: var(--agent-bg);
   color: var(--agent-ink);
 }
 

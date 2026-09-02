@@ -498,17 +498,6 @@ export default function SkillDetailPage() {
     }
   };
 
-  // const handleToggleEnable = async () => {
-  //   if (!detail) return;
-  //   await runAction(
-  //     () =>
-  //       detail.enable
-  //         ? adminSkillApi.offline({ namespaceId, skillName, scope: 'skill' })
-  //         : adminSkillApi.online({ namespaceId, skillName, scope: 'skill' }),
-  //     detail.enable ? '已禁用 Skill' : '已启用 Skill',
-  //   );
-  // };
-
   const handleToggleScope = async () => {
     if (!detail) return;
     const next = detail.scope === 'PUBLIC' ? 'PRIVATE' : 'PUBLIC';
@@ -542,10 +531,10 @@ export default function SkillDetailPage() {
   const cliCommands = useMemo(() => {
     const versionFlag = selectedVersion ? ` --version ${selectedVersion}` : '';
     return [
-      // {
-      //   label: 'CLI 安装',
-      //   command: `npx @nacos-group/cli skill-get ${skillName}${versionFlag} --host 192.168.130.182 --port 8848 --namespace ${cliNamespaceId}`,
-      // },
+      {
+        label: 'CLI 安装',
+        command: `npx @testinfra-ai-group/cli skill-get ${skillName}${versionFlag} --namespace ${cliNamespaceId}`,
+      },
     ];
   }, [skillName, selectedVersion, cliNamespaceId]);
 

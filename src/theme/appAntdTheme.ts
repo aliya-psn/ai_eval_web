@@ -1,6 +1,6 @@
 import type { ThemeConfig } from 'antd';
 
-/** 应用级 antd 主题 */
+/** 应用级 antd 主题（清爽商务风：纯蓝主色 + 8px 圆角 + 轻量阴影） */
 export const appAntdTheme: ThemeConfig = {
   token: {
     colorPrimary: '#0c62ff',
@@ -13,13 +13,13 @@ export const appAntdTheme: ThemeConfig = {
     colorTextSecondary: 'rgba(9, 25, 64, 0.7)',
     colorTextTertiary: 'rgba(9, 25, 64, 0.5)',
     colorTextQuaternary: 'rgba(9, 25, 64, 0.3)',
-    colorBgLayout: '#F5F6F8',
+    colorBgLayout: '#f8fafc',
     colorBorder: '#DADDE3',
     colorBorderSecondary: '#F1F2F4',
     colorBgMask: 'rgba(9, 25, 64, 0.5)',
-    borderRadius: 4,
-    borderRadiusLG: 4,
-    borderRadiusXS: 2,
+    borderRadius: 8,
+    borderRadiusLG: 8,
+    borderRadiusXS: 4,
     controlHeight: 32,
     controlHeightSM: 24,
     controlHeightLG: 40,
@@ -31,32 +31,32 @@ export const appAntdTheme: ThemeConfig = {
   },
   components: {
     Table: {
-      headerBg: '#fafbfb',
-      rowHoverBg: '#fafbfb',
-      cellPaddingBlock: 10,
+      headerBg: '#f1f5f9',
+      rowHoverBg: '#f8fafc',
+      cellPaddingBlock: 12,
       cellPaddingInline: 16,
-      headerBorderRadius: 0,
+      headerBorderRadius: 8,
     },
     Button: {
-      primaryShadow: 'none',
+      primaryShadow: '0 1px 2px rgba(12, 98, 255, 0.12)',
       defaultShadow: 'none',
-      borderRadius: 4,
+      borderRadius: 8,
       fontWeight: 400,
       controlHeight: 32,
-      paddingInline: 15,
+      paddingInline: 16,
     },
     Input: {
-      activeShadow: 'none',
+      activeShadow: '0 0 0 2px rgba(12, 98, 255, 0.12)',
       hoverBorderColor: '#0c62ff',
       activeBorderColor: '#0c62ff',
-      borderRadius: 4,
+      borderRadius: 8,
       controlHeight: 32,
       paddingBlock: 4,
-      paddingInline: 11,
+      paddingInline: 12,
       colorBorder: '#DADDE3',
     },
     Select: {
-      borderRadius: 4,
+      borderRadius: 8,
       controlHeight: 32,
       colorBorder: '#DADDE3',
       hoverBorderColor: '#0c62ff',
@@ -76,23 +76,23 @@ export const appAntdTheme: ThemeConfig = {
       colorTextQuaternary: 'rgba(9, 25, 64, 0.25)',
     },
     InputNumber: {
-      activeShadow: 'none',
+      activeShadow: '0 0 0 2px rgba(12, 98, 255, 0.12)',
       hoverBorderColor: '#0c62ff',
       activeBorderColor: '#0c62ff',
-      borderRadius: 4,
+      borderRadius: 8,
       controlHeight: 32,
       colorBorder: '#DADDE3',
     },
     Card: {
-      borderRadiusLG: 4,
-      paddingLG: 16,
+      borderRadiusLG: 8,
+      paddingLG: 20,
     },
     Tabs: {
       horizontalItemGutter: 24,
       titleFontSize: 14,
     },
     Tag: {
-      borderRadiusSM: 4,
+      borderRadiusSM: 6,
     },
   },
 };

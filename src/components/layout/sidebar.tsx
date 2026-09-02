@@ -231,7 +231,7 @@ function NavGroup({
   const [open, setOpen] = useState(isGroupActive || !!item.defaultOpen);
   const [flyoutOpen, setFlyoutOpen] = useState(false);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const expanded = open || isGroupActive;
+  const expanded = open;
 
   useEffect(() => {
     return () => { if (closeTimer.current) clearTimeout(closeTimer.current); };

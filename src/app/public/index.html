@@ -5,6 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AI评测平台</title>
+    <style>
+      /* 项目 CSS 被命名空间化到 #ai_eval_web，Tailwind Preflight 的 body { margin: 0 } 被改写为 #ai_eval_web body 永不匹配，故在此显式重置，避免 8px 默认外边距把内容下推、与 fixed 侧边栏错位 */
+      body { margin: 0; }
+    </style>
   </head>
   <body>
     <div id="ai_eval_web" data-element-id="ai_eval_web" class="ai_eval_web-plugin"></div>
