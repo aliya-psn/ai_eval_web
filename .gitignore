@@ -8,7 +8,6 @@ manifest.yml
 version.yml
 .kiro
 release/*
-.env*
 IFLOW.md
 GEMINI.md
 .iflow
