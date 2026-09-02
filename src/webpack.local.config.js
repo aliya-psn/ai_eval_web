@@ -177,6 +177,11 @@ module.exports = (cliEnv = {}, argv) => {
         '/api/admin': {
           target: 'http://192.168.178.116:8080/testinfra-admin',
           changeOrigin: true,
+          // 网关对带 Origin 头的写请求(POST/PUT/DELETE)返回 403，
+          // 开发环境通过代理转发时移除 Origin 头以规避（生产需后端网关配置 CORS 白名单）
+          onProxyReq: (proxyReq) => {
+            proxyReq.removeHeader('origin');
+          },
         },
         // Langfuse NextAuth 登录
         '/api/auth': {

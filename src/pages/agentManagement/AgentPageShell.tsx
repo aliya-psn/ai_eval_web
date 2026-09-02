@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import dayjs from 'dayjs';
+import { ArrowLeft } from 'lucide-react';
 import './agent.css';
 
 interface AgentPageShellProps {
@@ -32,7 +33,8 @@ export function AgentPageShell({
           <div className="agent-page-header-main">
             {onBack ? (
               <button type="button" className="agent-back" onClick={onBack}>
-                ← {resolvedBackLabel}
+                <ArrowLeft size={15} strokeWidth={2.2} />
+                {resolvedBackLabel}
               </button>
             ) : null}
             <h1 className="agent-title">{title}</h1>

@@ -34,6 +34,7 @@ import {
   SendOutlined,
   TagOutlined,
 } from '@ant-design/icons';
+import { ArrowLeft } from 'lucide-react';
 import Markdown from 'react-markdown';
 import MDEditor from '@uiw/react-md-editor';
 import '@uiw/react-md-editor/markdown-editor.css';
@@ -993,7 +994,8 @@ export default function SkillDetailPage() {
       <div className="agent">
         <div className="agent-shell">
           <button type="button" className="agent-back" onClick={() => navigate('/skill')}>
-            ← 返回
+            <ArrowLeft size={15} strokeWidth={2.2} />
+            返回
           </button>
           <div className="agent-section">
             <Empty style={{ padding: 48 }} description="加载数据失败" />
@@ -1026,7 +1028,8 @@ export default function SkillDetailPage() {
                     }}
                   >
                     <button type="button" className="agent-back" onClick={() => navigate('/skill')}>
-                      ← 返回列表
+                      <ArrowLeft size={15} strokeWidth={2.2} />
+                      返回
                     </button>
                     <Space wrap size={8}>
                       {versions.length > 0 ? (

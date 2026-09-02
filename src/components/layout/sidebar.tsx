@@ -1,6 +1,5 @@
 import { useCallback } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { getAssetUrl } from '@/utils/asset-url';
 import {
   Bot,
   ChevronDown,
@@ -48,13 +47,13 @@ export function Sidebar() {
   if (aiEnabled && functionMode !== 'naming' && functionMode !== 'config' && functionMode !== 'microservice') {
     coreItems.push({
       key: 'ai',
-      label: 'AI 注册中心',
+      label: 'AI 资产管理',
       icon: <Bot size={18} />,
       defaultOpen: true,
       children: [
-        { key: 'skillRegistry', label: 'Skill 管理', path: '/skill' },
-        { key: 'datasetRegistry', label: '数据集管理', path: '/datasetManagement' },
+        // { key: 'skillRegistry', label: 'Skill 管理', path: '/skill' },
         { key: 'agentRegistry', label: 'Agent 管理', path: '/agentManagement' },
+        { key: 'datasetRegistry', label: '数据集管理', path: '/datasetManagement' },
       ],
     });
   }
@@ -90,27 +89,30 @@ export function Sidebar() {
     <aside
       className={cn(
         'fixed left-0 top-0 z-40 h-screen border-r border-sidebar-border bg-sidebar-background/80 backdrop-blur-xl transition-all duration-300 flex flex-col',
-        sidebarCollapsed ? 'w-16' : 'w-64'
+        sidebarCollapsed ? 'w-16' : 'w-52'
       )}
     >
       <div className="flex h-14 items-center justify-center border-b border-sidebar-border">
         {!sidebarCollapsed ? (
-          <img
-            src={getAssetUrl('img/nacos-logo-dark.svg')}
-            alt="Nacos"
-            className="h-6 w-auto max-w-[140px] object-contain"
-          />
+          <div className="flex items-center gap-2.5 px-2 min-w-0">
+            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 text-sm font-bold text-white shadow-sm">
+              AI
+            </span>
+            <div className="min-w-0 leading-tight">
+              <div className="truncate text-[15px] font-bold tracking-wide text-slate-900">
+                评测平台
+              </div>
+            </div>
+          </div>
         ) : (
           <Tooltip>
             <TooltipTrigger asChild>
-              <img
-                src={getAssetUrl('img/nacos-logo-dark.svg')}
-                alt="Nacos"
-                className="h-7 w-7 object-contain cursor-default"
-              />
+              <span className="flex h-8 w-8 cursor-default items-center justify-center rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 text-sm font-bold text-white shadow-sm">
+                AI
+              </span>
             </TooltipTrigger>
             <TooltipContent side="right" sideOffset={8} className="rounded-lg border border-border/50 bg-popover text-popover-foreground shadow-md px-3 py-2 text-xs font-medium">
-              NACOS {version && `v${version}`}
+              评测平台 {version && `v${version}`}
             </TooltipContent>
           </Tooltip>
         )}
@@ -120,7 +122,7 @@ export function Sidebar() {
         <div className="px-2 space-y-1">
           {!sidebarCollapsed && coreItems.length > 0 && (
             <div className="px-2 py-2 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
-              {'AI 注册中心'}
+              {'核心功能'}
             </div>
           )}
 

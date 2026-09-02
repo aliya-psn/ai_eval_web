@@ -46,7 +46,7 @@ export default function AppLayout() {
           <div
             className={cn(
               'transition-all duration-300',
-              sidebarCollapsed ? 'ml-16' : 'ml-64',
+              sidebarCollapsed ? 'ml-16' : 'ml-56',
             )}
           >
             <Header />

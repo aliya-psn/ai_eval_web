@@ -24,7 +24,7 @@ function lazyPage(
 }
 
 function DefaultRedirect() {
-  return <Navigate to="/skill" replace />;
+  return <Navigate to="/agentManagement" replace />;
 }
 
 // Layouts

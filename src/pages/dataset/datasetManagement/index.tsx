@@ -15,6 +15,7 @@ import {
 import { PlusOutlined, ReloadOutlined, SearchOutlined } from '@ant-design/icons';
 import type { ColumnsType } from 'antd/es/table';
 import { datasetApi } from '@/api/langfuse';
+import { useNamespaceStore } from '@/stores/namespace-store';
 import type { Dataset, DatasetListRow } from '@/types/dataset';
 import { agentInitials } from '@/pages/agentManagement/AgentPageShell';
 import '@/pages/agentManagement/agent.css';
@@ -117,6 +118,7 @@ function JsonPreviewCell({ value }: { value: unknown }) {
 
 export default function DatasetManagementPage() {
   const navigate = useNavigate();
+  const { currentNamespace } = useNamespaceStore();
 
   const [loading, setLoading] = useState(false);
   const [allRecords, setAllRecords] = useState<Dataset[]>([]);
@@ -144,11 +146,12 @@ export default function DatasetManagementPage() {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [currentNamespace]);
 
   useEffect(() => {
+    setPage(1);
     void loadData();
-  }, [loadData]);
+  }, [loadData, currentNamespace]);
 
   const filtered = useMemo(
     () => allRecords.filter((item) => matchDatasetQuery(item, searchKey)),

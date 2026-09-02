@@ -11,18 +11,14 @@ export interface CurrentUser {
   [key: string]: unknown;
 }
 
+/** 默认用户 */
+const DEFAULT_USER: CurrentUser = { username: 'admin', nickname: 'admin' };
+
 /**
- * 获取当前用户：从页面缓存（基座注入 / window.currentUser）读取。
+ * 获取当前用户：默认返回 admin。
  */
 export function getCurrentUserFromHost(): CurrentUser | null {
-  if (typeof window === 'undefined') return null;
-
-  const cached = (window as unknown as { currentUser?: CurrentUser }).currentUser;
-  if (cached?.username) {
-    return { ...cached };
-  }
-
-  return null;
+  return { ...DEFAULT_USER };
 }
 
 /** 展示名：有 nickname 时为「昵称(username)」，否则 username */
@@ -45,11 +41,7 @@ export function useCurrentUser(): { data: CurrentUser | null; loading: boolean }
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const user = getCurrentUserFromHost();
-    if (user) {
-      (window as unknown as { currentUser?: CurrentUser }).currentUser = user;
-    }
-    setData(user);
+    setData(getCurrentUserFromHost());
     setLoading(false);
   }, []);
 
