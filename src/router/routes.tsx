@@ -59,11 +59,11 @@ export const routes: RouteObject[] = [
       },
       {
         path: 'skill',
-        element: lazyPage(() => import('@/pages/skillManagement')),
+        element: lazyPage(() => import('@/pages/skill/skillManagement')),
       },
       {
         path: 'skillDetail',
-        element: lazyPage(() => import('@/pages/skillDetail')),
+        element: lazyPage(() => import('@/pages/skill/skillDetail')),
       },
       {
         path: 'datasetManagement',

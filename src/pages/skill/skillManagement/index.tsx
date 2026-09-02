@@ -25,7 +25,7 @@ import {
   AgentPageShell,
 } from '@/pages/agentManagement/AgentPageShell';
 import '@/pages/agentManagement/agent.css';
-import { UploadSkillDialog } from '@/pages/skillShared/UploadSkillDialog';
+import { UploadSkillDialog } from '@/pages/skill/skillShared/UploadSkillDialog';
 import { useNamespaceStore } from '@/stores/namespace-store';
 import type { SkillListItem } from '@/types/skill';
 import { SkillCard } from './components/SkillCard';

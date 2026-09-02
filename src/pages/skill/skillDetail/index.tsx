@@ -51,13 +51,13 @@ import {
   formatAgentTime,
 } from '@/pages/agentManagement/AgentPageShell';
 import '@/pages/agentManagement/agent.css';
-import { SkillResourcePanel } from '@/pages/skillShared/SkillResourcePanel';
-import { PipelineStatusDisplay } from '@/pages/skillShared/PipelineStatusDisplay';
-import { SkillVersionTimeline } from '@/pages/skillShared/SkillVersionTimeline';
+import { SkillResourcePanel } from '@/pages/skill/skillShared/SkillResourcePanel';
+import { PipelineStatusDisplay } from '@/pages/skill/skillShared/PipelineStatusDisplay';
+import { SkillVersionTimeline } from '@/pages/skill/skillShared/SkillVersionTimeline';
 import {
   getValidActionsWithContext,
   sortVersionsDescending,
-} from '@/pages/skillShared/version-utils';
+} from '@/pages/skill/skillShared/version-utils';
 import {
   hasNonFrontmatterMarkdownBody,
   parseFrontmatter,
