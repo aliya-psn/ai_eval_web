@@ -51,7 +51,7 @@ export function Sidebar() {
       icon: <Bot size={18} />,
       defaultOpen: true,
       children: [
-        // { key: 'skillRegistry', label: 'Skill 管理', path: '/skill' },
+        { key: 'skillRegistry', label: 'Skill 管理', path: '/skill' },
         { key: 'agentRegistry', label: 'Agent 管理', path: '/agentManagement' },
         { key: 'datasetRegistry', label: '数据集管理', path: '/datasetManagement' },
       ],
@@ -88,40 +88,43 @@ export function Sidebar() {
   return (
     <aside
       className={cn(
-        'fixed left-0 top-0 z-40 h-screen border-r border-sidebar-border bg-sidebar-background/80 backdrop-blur-xl transition-all duration-300 flex flex-col',
-        sidebarCollapsed ? 'w-16' : 'w-52'
+        'fixed left-0 top-0 z-40 h-screen border-r border-slate-200/80 bg-white/80 backdrop-blur-xl transition-all duration-300 flex flex-col',
+        sidebarCollapsed ? 'w-16' : 'w-56'
       )}
     >
-      <div className="flex h-14 items-center justify-center border-b border-sidebar-border">
+      <div className="flex h-14 items-center justify-center border-b border-slate-100">
         {!sidebarCollapsed ? (
           <div className="flex items-center gap-2.5 px-2 min-w-0">
-            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 text-sm font-bold text-white shadow-sm">
+            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500 via-blue-600 to-indigo-600 text-sm font-bold text-white shadow-lg shadow-blue-500/25">
               AI
             </span>
             <div className="min-w-0 leading-tight">
               <div className="truncate text-[15px] font-bold tracking-wide text-slate-900">
                 评测平台
               </div>
+              <div className="truncate text-[10px] font-medium text-slate-400">
+                AI Evaluation
+              </div>
             </div>
           </div>
         ) : (
           <Tooltip>
             <TooltipTrigger asChild>
-              <span className="flex h-8 w-8 cursor-default items-center justify-center rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 text-sm font-bold text-white shadow-sm">
+              <span className="flex h-8 w-8 cursor-default items-center justify-center rounded-xl bg-gradient-to-br from-blue-500 via-blue-600 to-indigo-600 text-sm font-bold text-white shadow-lg shadow-blue-500/25">
                 AI
               </span>
             </TooltipTrigger>
-            <TooltipContent side="right" sideOffset={8} className="rounded-lg border border-border/50 bg-popover text-popover-foreground shadow-md px-3 py-2 text-xs font-medium">
+            <TooltipContent side="right" sideOffset={8} className="rounded-lg border border-slate-200 bg-white text-slate-800 shadow-md px-3 py-2 text-xs font-medium">
               评测平台 {version && `v${version}`}
             </TooltipContent>
           </Tooltip>
         )}
       </div>
 
-      <ScrollArea className="flex-1 py-2">
-        <div className="px-2 space-y-1">
+      <ScrollArea className="flex-1 py-3">
+        <div className="px-2.5 space-y-1">
           {!sidebarCollapsed && coreItems.length > 0 && (
-            <div className="px-2 py-2 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+            <div className="px-2.5 py-2 text-[10px] font-semibold uppercase tracking-wider text-slate-400">
               {'核心功能'}
             </div>
           )}
@@ -149,16 +152,16 @@ export function Sidebar() {
           )}
 
           {coreItems.length === 0 && !sidebarCollapsed && (
-            <div className="px-3 py-4 text-xs text-muted-foreground">
+            <div className="px-3 py-4 text-xs text-slate-400">
               {'暂无数据'}
             </div>
           )}
         </div>
       </ScrollArea>
 
-      <div className="border-t border-sidebar-border px-2 py-3">
+      <div className="border-t border-slate-100 px-2 py-3">
         {!sidebarCollapsed && (
-          <div className="min-h-5 px-2 text-center text-xs leading-5 text-muted-foreground">
+          <div className="min-h-5 px-2 text-center text-xs leading-5 text-slate-400">
             {version && `v${version}`}
             {startupMode && ` · ${startupMode}`}
           </div>
@@ -185,14 +188,14 @@ function NavLink({
       className={cn(
         'group relative flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-all duration-200',
         active
-          ? 'bg-sidebar-accent text-sidebar-primary'
-          : 'text-sidebar-foreground hover:bg-sidebar-accent/60 hover:text-sidebar-accent-foreground'
+          ? 'bg-blue-50 text-blue-700'
+          : 'text-slate-600 hover:bg-slate-100/80 hover:text-slate-900'
       )}
     >
       {active && (
         <div className="absolute left-0 top-1/2 -translate-y-1/2 h-5 w-[3px] rounded-r-full bg-gradient-to-b from-blue-500 to-blue-600" />
       )}
-      <span className="shrink-0">{item.icon}</span>
+      <span className={cn('shrink-0 transition-colors', active ? 'text-blue-600' : 'text-slate-400 group-hover:text-slate-600')}>{item.icon}</span>
       {!collapsed && <span className="truncate">{item.label}</span>}
       {!collapsed && item.badge && (
         <Badge variant="destructive" className="ml-auto text-[10px] px-1.5 py-0">
@@ -206,7 +209,7 @@ function NavLink({
     return (
       <Tooltip>
         <TooltipTrigger asChild>{btn}</TooltipTrigger>
-        <TooltipContent side="right" sideOffset={8} className="rounded-lg border border-border/50 bg-popover text-popover-foreground shadow-md px-3 py-2 text-xs font-medium">
+        <TooltipContent side="right" sideOffset={8} className="rounded-lg border border-slate-200 bg-white text-slate-800 shadow-md px-3 py-2 text-xs font-medium">
           {item.label}
         </TooltipContent>
       </Tooltip>
@@ -258,14 +261,14 @@ function NavGroup({
             className={cn(
               'group relative flex w-full items-center justify-center rounded-lg px-3 py-2 transition-all duration-200',
               isGroupActive
-                ? 'bg-sidebar-accent text-sidebar-primary'
-                : 'text-sidebar-foreground hover:bg-sidebar-accent/60'
+                ? 'bg-blue-50 text-blue-700'
+                : 'text-slate-600 hover:bg-slate-100/80'
             )}
           >
             {isGroupActive && (
               <div className="absolute left-0 top-1/2 -translate-y-1/2 h-5 w-[3px] rounded-r-full bg-gradient-to-b from-blue-500 to-blue-600" />
             )}
-            {item.icon}
+            <span className={cn('transition-colors', isGroupActive ? 'text-blue-600' : 'text-slate-400 group-hover:text-slate-600')}>{item.icon}</span>
           </button>
         </PopoverTrigger>
         <PopoverContent
@@ -277,11 +280,11 @@ function NavGroup({
           onOpenAutoFocus={(e) => e.preventDefault()}
           onCloseAutoFocus={(e) => e.preventDefault()}
           onPointerDownOutside={() => setFlyoutOpen(false)}
-          className="w-48 p-1.5 rounded-xl shadow-lg border border-border/60 bg-popover/95 backdrop-blur-xl"
+          className="w-48 p-1.5 rounded-xl shadow-lg border border-slate-200 bg-white/95 backdrop-blur-xl"
         >
           <div className="flex items-center gap-2 px-2.5 py-1.5">
-            <span className="text-muted-foreground shrink-0">{item.icon}</span>
-            <span className="text-xs font-semibold text-foreground truncate">{item.label}</span>
+            <span className="text-slate-400 shrink-0">{item.icon}</span>
+            <span className="text-xs font-semibold text-slate-800 truncate">{item.label}</span>
             {item.badge && (
               <Badge variant="destructive" className="ml-auto text-[10px] px-1.5 py-0">
                 {item.badge}
@@ -297,8 +300,8 @@ function NavGroup({
                 className={cn(
                   'flex w-full items-center gap-2.5 rounded-lg px-2.5 py-1.5 text-[13px] transition-colors',
                   isActive(child.path)
-                    ? 'bg-sidebar-accent text-sidebar-primary font-medium'
-                    : 'text-muted-foreground hover:bg-sidebar-accent/60 hover:text-foreground'
+                    ? 'bg-blue-50 text-blue-700 font-medium'
+                    : 'text-slate-500 hover:bg-slate-100/80 hover:text-slate-800'
                 )}
               >
                 <span className="shrink-0 opacity-70">{iconForChild(child.key)}</span>
@@ -321,17 +324,17 @@ function NavGroup({
 
   return (
     <Collapsible open={expanded} onOpenChange={setOpen}>
-      <CollapsibleTrigger className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-sidebar-foreground hover:bg-sidebar-accent/60 transition-all duration-200">
-        <span className="shrink-0">{item.icon}</span>
+      <CollapsibleTrigger className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-slate-600 hover:bg-slate-100/80 hover:text-slate-900 transition-all duration-200">
+        <span className="shrink-0 text-slate-400">{item.icon}</span>
         <span className="truncate flex-1 text-left">{item.label}</span>
         {item.badge && (
           <Badge variant="destructive" className="text-[10px] px-1.5 py-0 mr-1">
             {item.badge}
           </Badge>
         )}
-        {expanded ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
+        {expanded ? <ChevronDown size={14} className="text-slate-400" /> : <ChevronRight size={14} className="text-slate-400" />}
       </CollapsibleTrigger>
-      <CollapsibleContent className="ml-4 space-y-0.5 border-l border-sidebar-border pl-3 mt-0.5">
+      <CollapsibleContent className="ml-4 space-y-0.5 border-l border-slate-200 pl-3 mt-0.5">
         {item.children?.map((child) => (
           <button
             key={child.key}
@@ -339,11 +342,11 @@ function NavGroup({
             className={cn(
               'flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-sm transition-all duration-200',
               isActive(child.path)
-                ? 'text-sidebar-primary font-medium bg-sidebar-accent'
-                : 'text-muted-foreground hover:text-sidebar-foreground hover:bg-sidebar-accent/40'
+                ? 'text-blue-700 font-medium bg-blue-50'
+                : 'text-slate-500 hover:text-slate-800 hover:bg-slate-100/70'
             )}
           >
-            <span className="shrink-0 opacity-70">{iconForChild(child.key)}</span>
+            <span className={cn('shrink-0 opacity-70', isActive(child.path) ? 'text-blue-600' : '')}>{iconForChild(child.key)}</span>
             <span className="truncate">{child.label}</span>
             {child.badge && (
               <Badge className={cn(

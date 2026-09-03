@@ -21,10 +21,8 @@ import {
 } from '@ant-design/icons';
 import { adminSkillApi } from '@/api/admin/skill';
 import { resolveNacosNamespaceId } from '@/lib/resolve-nacos-namespace';
-import {
-  AgentPageShell,
-} from '@/pages/agentManagement/AgentPageShell';
-import '@/pages/agentManagement/agent.css';
+import { PageShell } from '@/components/page/PageShell';
+import '@/components/page/page.css';
 import { UploadSkillDialog } from '@/pages/skill/skillShared/UploadSkillDialog';
 import { useNamespaceStore } from '@/stores/namespace-store';
 import type { SkillListItem } from '@/types/skill';
@@ -386,28 +384,24 @@ export default function SkillManagementPage() {
         </div>
       ) : null}
 
-      <AgentPageShell
-        title="Skill 管理"
-        extra={
-          activeTab === 'mine' ? (
-            <Space wrap>
-              <Button
-                icon={<UploadOutlined />}
-                onClick={() => {
-                  setUploadInitialFile(null);
-                  setUploadOpen(true);
-                }}
-              >
-                上传
-              </Button>
-            </Space>
-          ) : null
-        }
-      >
+      <PageShell title="Skill 管理">
         <div className="agent-panel">
           <Tabs
             activeKey={activeTab}
             onChange={handleTabChange}
+            tabBarExtraContent={
+              activeTab === 'mine' ? (
+                <Button
+                  icon={<UploadOutlined />}
+                  onClick={() => {
+                    setUploadInitialFile(null);
+                    setUploadOpen(true);
+                  }}
+                >
+                  上传
+                </Button>
+              ) : null
+            }
             items={[
               {
                 key: 'mine',
@@ -444,7 +438,7 @@ export default function SkillManagementPage() {
             ]}
           />
         </div>
-      </AgentPageShell>
+      </PageShell>
 
       <UploadSkillDialog
         open={uploadOpen}

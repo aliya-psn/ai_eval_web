@@ -23,7 +23,7 @@ import type {
   HttpAgentRevisionDetail,
   HttpAgentRevisionView,
 } from '@/types/adminAgent';
-import { AgentPageShell, AgentSection, agentInitials, formatAgentTime } from './AgentPageShell';
+import { PageShell, PageSection, nameInitials, formatTime } from '@/components/page/PageShell';
 
 function formatOwnerDisplay(id?: string, name?: string): string {
   if (name && id) return `${name} (${id})`;
@@ -228,7 +228,7 @@ export default function HttpAgentDetailPage() {
   const displayName = detail?.name || nameParam || 'HTTP Agent 详情';
 
   return (
-    <AgentPageShell
+    <PageShell
       title={displayName}
       onBack={() => navigate('/agentManagement')}
       extra={
@@ -271,7 +271,7 @@ export default function HttpAgentDetailPage() {
           </div>
         ) : (
           <>
-            <AgentSection
+            <PageSection
               title="基本信息"
               extra={
                 <Space wrap size={10}>
@@ -327,7 +327,7 @@ export default function HttpAgentDetailPage() {
                       {detail.metadata?.iconUrl ? (
                         <img src={detail.metadata.iconUrl} alt="" />
                       ) : (
-                        agentInitials(detail.name || nameParam)
+                        nameInitials(detail.name || nameParam)
                       )}
                     </div>
                     <div>
@@ -390,7 +390,7 @@ export default function HttpAgentDetailPage() {
                       )}
                     </Descriptions.Item>
                     <Descriptions.Item label="创建时间">
-                      {formatAgentTime(detail.createdTime)}
+                      {formatTime(detail.createdTime)}
                     </Descriptions.Item>
                   </Descriptions>
                 </>
@@ -404,10 +404,10 @@ export default function HttpAgentDetailPage() {
                   }
                 />
               ) : null}
-            </AgentSection>
+            </PageSection>
 
             {detail?.invoke ? (
-              <AgentSection title="支持接口">
+              <PageSection title="支持接口">
                 <PostmanInvokeEditor
                   value={applyParamTypesToInvoke(
                     invokeToPostmanValue(detail.invoke),
@@ -416,11 +416,11 @@ export default function HttpAgentDetailPage() {
                   onChange={() => undefined}
                   readOnly
                 />
-              </AgentSection>
+              </PageSection>
             ) : null}
           </>
         )}
       </Spin>
-    </AgentPageShell>
+    </PageShell>
   );
 }

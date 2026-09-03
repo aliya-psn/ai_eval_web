@@ -1,5 +1,5 @@
 import { HttpAgentList } from './HttpAgentList';
-import './agent.css';
+import '@/components/page/page.css';
 
 export default function AgentManagementV2Page() {
   return (
@@ -10,9 +10,7 @@ export default function AgentManagementV2Page() {
         </header>
 
         <div className="agent-panel">
-          <div className="agent-panel-inner">
             <HttpAgentList />
-          </div>
         </div>
       </div>
     </div>

@@ -5,8 +5,8 @@ import type { ColumnsType } from 'antd/es/table';
 import { ApartmentOutlined } from '@ant-design/icons';
 import { datasetApi } from '@/api/langfuse';
 import type { DatasetRun, DatasetRunItemRow, TraceScore } from '@/types/dataset';
-import { AgentPageShell } from '@/pages/agentManagement/AgentPageShell';
-import '@/pages/agentManagement/agent.css';
+import { PageShell } from '@/components/page/PageShell';
+import '@/components/page/page.css';
 import {
   formatDatasetTime,
   formatLatencySeconds,
@@ -224,19 +224,19 @@ export default function DatasetExperimentDetailPage() {
 
   if (!datasetName || !runName) {
     return (
-      <AgentPageShell
+      <PageShell
         title={"Dataset run"}
         onBack={() => navigate('/datasetManagement')}
       >
         <div className="agent-section">
           <Empty style={{ padding: 48 }} description={"缺少数据集或执行记录名称"} />
         </div>
-      </AgentPageShell>
+      </PageShell>
     );
   }
 
   return (
-    <AgentPageShell
+    <PageShell
       title={displayTitle}
       onBack={() =>
         navigate(`/datasetDetail?name=${encodeURIComponent(datasetName)}`)
@@ -325,6 +325,6 @@ export default function DatasetExperimentDetailPage() {
           </div>
         )}
       </Spin>
-    </AgentPageShell>
+    </PageShell>
   );
 }

@@ -17,7 +17,7 @@ import { adminAgentApi } from '@/api/admin';
 import { useCurrentUser } from '@/lib/api/user';
 import { useNamespaceStore } from '@/stores/namespace-store';
 import type { HttpAgentListItem } from '@/types/adminAgent';
-import { agentInitials, formatAgentTime } from './AgentPageShell';
+import { nameInitials, formatTime } from '@/components/page/PageShell';
 
 export function HttpAgentList() {
   const navigate = useNavigate();
@@ -183,7 +183,7 @@ export function HttpAgentList() {
       ellipsis: true,
       render: (text, record) => (
         <div className="agent-name-cell">
-          <span className="agent-avatar">{agentInitials(text)}</span>
+          <span className="agent-avatar">{nameInitials(text)}</span>
           <div className="agent-name-text">
             <Button type="link" className="agent-name-link" onClick={() => goDetail(record)}>
               {text}
@@ -238,7 +238,7 @@ export function HttpAgentList() {
       width: 180,
       render: (v) => (
         <span style={{ color: 'rgba(9,25,64,0.55)', fontVariantNumeric: 'tabular-nums' }}>
-          {formatAgentTime(v)}
+          {formatTime(v)}
         </span>
       ),
     },
@@ -248,7 +248,7 @@ export function HttpAgentList() {
       width: 180,
       render: (v) => (
         <span style={{ color: 'rgba(9,25,64,0.55)', fontVariantNumeric: 'tabular-nums' }}>
-          {formatAgentTime(v)}
+          {formatTime(v)}
         </span>
       ),
     },

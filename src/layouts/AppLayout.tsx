@@ -41,7 +41,7 @@ export default function AppLayout() {
   return (
     <TooltipProvider delayDuration={200}>
       <AppAntdProvider>
-        <div className={cn('bg-background', 'min-h-screen')}>
+        <div className={cn('min-h-screen bg-slate-50')}>
           <Sidebar />
           <div
             className={cn(
@@ -50,8 +50,10 @@ export default function AppLayout() {
             )}
           >
             <Header />
-            <main className={cn('p-4')}>
-              <Outlet />
+            <main className={cn('p-2 lg:p-3')}>
+              <div className="mx-auto w-full max-w-[1600px]">
+                <Outlet />
+              </div>
             </main>
           </div>
         </div>

@@ -7,7 +7,7 @@ import {
   LockOutlined,
 } from '@ant-design/icons';
 import { Button, Card, Checkbox, Space, Tag, Tooltip } from 'antd';
-import { agentInitials, formatAgentTime } from '@/pages/agentManagement/AgentPageShell';
+import { nameInitials, formatTime } from '@/components/page/PageShell';
 import { parseBizTags, type SkillListItem } from '@/types/skill';
 
 interface SkillCardProps {
@@ -70,7 +70,7 @@ export function SkillCard({
           }}
         >
           <div className="agent-detail-avatar" style={{ width: 40, height: 40, fontSize: 14, borderRadius: 10 }}>
-            {agentInitials(item.name)}
+            {nameInitials(item.name)}
           </div>
           <div style={{ flex: 1, minWidth: 0 }}>
             <div
@@ -98,17 +98,6 @@ export function SkillCard({
               ) : null}
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginTop: 6, flexWrap: 'wrap' }}>
-              {/* {item.enable ? (
-                <span className="agent-status on" style={{ fontSize: 11 }}>
-                  <span className="agent-status-dot" />
-                  已启用
-                </span>
-              ) : (
-                <span className="agent-status off" style={{ fontSize: 11 }}>
-                  <span className="agent-status-dot" />
-                  已禁用
-                </span>
-              )} */}
               {item.scope ? (
                 <span
                   style={{
@@ -199,7 +188,7 @@ export function SkillCard({
       >
         <span style={{ fontSize: 11, color: 'rgba(9,25,64,0.45)' }}>
           {item.updateTime
-            ? formatAgentTime(new Date(item.updateTime).toISOString())
+            ? formatTime(new Date(item.updateTime).toISOString())
             : '-'}
         </span>
         <Space size={0}>

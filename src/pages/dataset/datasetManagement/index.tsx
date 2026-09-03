@@ -17,8 +17,8 @@ import type { ColumnsType } from 'antd/es/table';
 import { datasetApi } from '@/api/langfuse';
 import { useNamespaceStore } from '@/stores/namespace-store';
 import type { Dataset, DatasetListRow } from '@/types/dataset';
-import { agentInitials } from '@/pages/agentManagement/AgentPageShell';
-import '@/pages/agentManagement/agent.css';
+import { nameInitials } from '@/components/page/PageShell';
+import '@/components/page/page.css';
 import JsonSchemaEditor from './JsonSchemaEditor';
 import {
   createOptionalJsonRule,
@@ -327,7 +327,7 @@ export default function DatasetManagementPage() {
       fixed: 'left',
       render: (text: string, record) => (
         <div className="agent-name-cell">
-          <span className="agent-avatar">{agentInitials(text)}</span>
+          <span className="agent-avatar">{nameInitials(text)}</span>
           <div className="agent-name-text">
             <Button type="link" className="agent-name-link" onClick={() => goDetail(record)}>
               {text}
@@ -437,47 +437,47 @@ export default function DatasetManagementPage() {
     <div className="agent">
       <div className="agent-shell">
         <header className="agent-page-header">
-          <h1 className="agent-title">{"数据集"}</h1>
+          <h1 className="agent-title">{"数据集管理"}</h1>
         </header>
 
-        <div className="agent-toolbar">
-          <Space wrap size={10}>
-            <Input
-              allowClear
-              placeholder={"搜索数据集名称或描述"}
-              value={searchKey}
-              onChange={(e) => handleSearchChange(e.target.value)}
-              style={{ width: 280 }}
-              prefix={<SearchOutlined style={{ color: '#b5bac5' }} />}
-            />
-            <Button icon={<ReloadOutlined />} onClick={handleReset} loading={loading}>
-              {"重置"}
-            </Button>
-          </Space>
-          <Button type="primary" icon={<PlusOutlined />} onClick={openCreate}>
-            {"新建数据集"}
-          </Button>
-        </div>
+        <div className="agent-panel">
+            <div className="agent-toolbar">
+              <Space wrap size={10}>
+                <Input
+                  allowClear
+                  placeholder={"搜索数据集名称或描述"}
+                  value={searchKey}
+                  onChange={(e) => handleSearchChange(e.target.value)}
+                  style={{ width: 280 }}
+                  prefix={<SearchOutlined style={{ color: '#b5bac5' }} />}
+                />
+                <Button icon={<ReloadOutlined />} onClick={handleReset} loading={loading}>
+                  {"重置"}
+                </Button>
+              </Space>
+              <Button type="primary" icon={<PlusOutlined />} onClick={openCreate}>
+                {"新建数据集"}
+              </Button>
+            </div>
 
-        <div className="rounded-xl bg-white shadow-sm overflow-hidden border border-slate-200/60">
-          <Table<DatasetListRow>
-            rowKey="id"
-            loading={loading}
-            columns={columns}
-            dataSource={tableData}
-            scroll={{ x: 1800 }}
-            pagination={{
-              current: page,
-              pageSize,
-              total: filtered.length,
-              showSizeChanger: true,
-              showTotal: (count) => `共 ${count} 条`,
-              onChange: (nextPage, nextSize) => {
-                setPage(nextPage);
-                setPageSize(nextSize);
-              },
-            }}
-          />
+            <Table<DatasetListRow>
+              rowKey="id"
+              loading={loading}
+              columns={columns}
+              dataSource={tableData}
+              scroll={{ x: 1800 }}
+              pagination={{
+                current: page,
+                pageSize,
+                total: filtered.length,
+                showSizeChanger: true,
+                showTotal: (count) => `共 ${count} 条`,
+                onChange: (nextPage, nextSize) => {
+                  setPage(nextPage);
+                  setPageSize(nextSize);
+                },
+              }}
+            />
         </div>
 
         <Modal

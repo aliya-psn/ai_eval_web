@@ -45,12 +45,8 @@ import { adminSkillApi } from '@/api/admin/skill';
 import { BizTagEditDialog } from '@/components/ai/BizTagEditDialog';
 import { CliCommandCard } from '@/components/ai/CliCommandCard';
 import { LabelBindDialog } from '@/components/ai/LabelBindDialog';
-import {
-  AgentSection,
-  agentInitials,
-  formatAgentTime,
-} from '@/pages/agentManagement/AgentPageShell';
-import '@/pages/agentManagement/agent.css';
+import { PageSection, nameInitials, formatTime } from '@/components/page/PageShell';
+import '@/components/page/page.css';
 import { SkillResourcePanel } from '@/pages/skill/skillShared/SkillResourcePanel';
 import { PipelineStatusDisplay } from '@/pages/skill/skillShared/PipelineStatusDisplay';
 import { SkillVersionTimeline } from '@/pages/skill/skillShared/SkillVersionTimeline';
@@ -1064,7 +1060,7 @@ export default function SkillDetailPage() {
                   </div>
 
                   <div className="agent-detail-hero">
-                    <div className="agent-detail-avatar">{agentInitials(skillName)}</div>
+                    <div className="agent-detail-avatar">{nameInitials(skillName)}</div>
                     <div style={{ flex: 1, minWidth: 0 }}>
                       <div
                         style={{
@@ -1227,7 +1223,7 @@ export default function SkillDetailPage() {
                         {detail.updateTime ? (
                           <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
                             <ClockCircleOutlined />
-                            {formatAgentTime(new Date(detail.updateTime).toISOString())}
+                            {formatTime(new Date(detail.updateTime).toISOString())}
                           </span>
                         ) : null}
                         {detail.workspaceName ? (
@@ -1287,7 +1283,7 @@ export default function SkillDetailPage() {
                               : 'grid grid-cols-1 gap-3 lg:grid-cols-[minmax(0,1fr)_320px]'
                           }
                         >
-                          <AgentSection
+                          <PageSection
                             title="SKILL.md"
                             extra={
                               !isEditingDraft && !isReadOnly ? (
@@ -1390,7 +1386,7 @@ export default function SkillDetailPage() {
                                 </p>
                               )}
                             </div>
-                          </AgentSection>
+                          </PageSection>
 
                           {!isEditingDraft ? (
                             <div className="flex flex-col gap-3 lg:w-[320px]">
@@ -1400,7 +1396,7 @@ export default function SkillDetailPage() {
                                 downloadFileName={selectedVersion ? downloadZipName : undefined}
                               />
 
-                              <AgentSection title="基础信息">
+                              <PageSection title="基础信息">
                                 <div
                                   style={{
                                     display: 'grid',
@@ -1476,18 +1472,18 @@ export default function SkillDetailPage() {
                                     />
                                   </div>
                                 </div>
-                              </AgentSection>
+                              </PageSection>
 
                               {pipelineInfo ? (
-                                <AgentSection title="流水线状态">
+                                <PageSection title="流水线状态">
                                   <PipelineStatusDisplay
                                     pipelineInfo={pipelineInfo}
                                     onRefresh={() => void loadDetail()}
                                   />
-                                </AgentSection>
+                                </PageSection>
                               ) : null}
 
-                              <AgentSection
+                              <PageSection
                                 title="业务标签"
                                 extra={
                                   !isReadOnly ? (
@@ -1511,9 +1507,9 @@ export default function SkillDetailPage() {
                                     暂无业务标签
                                   </span>
                                 )}
-                              </AgentSection>
+                              </PageSection>
 
-                              <AgentSection
+                              <PageSection
                                 title="版本标签"
                                 extra={
                                   !isReadOnly &&
@@ -1540,7 +1536,7 @@ export default function SkillDetailPage() {
                                     暂无版本标签
                                   </span>
                                 )}
-                              </AgentSection>
+                              </PageSection>
                             </div>
                           ) : null}
                         </div>
@@ -1557,7 +1553,7 @@ export default function SkillDetailPage() {
                         </span>
                       ),
                       children: (
-                        <AgentSection title="资源文件">
+                        <PageSection title="资源文件">
                           <SkillResourcePanel
                             resources={
                               isEditingDraft ? editResources : versionDoc?.resource || {}
@@ -1565,7 +1561,7 @@ export default function SkillDetailPage() {
                             editable={isEditingDraft}
                             onChange={isEditingDraft ? setEditResources : undefined}
                           />
-                        </AgentSection>
+                        </PageSection>
                       ),
                     },
                   ]}

@@ -13,7 +13,7 @@ import {
 import { adminAgentApi } from '@/api/admin';
 import { useCurrentUser } from '@/lib/api/user';
 import type { HttpAgentRevisionDetail } from '@/types/adminAgent';
-import { AgentPageShell, AgentSection } from './AgentPageShell';
+import { PageShell, PageSection } from '@/components/page/PageShell';
 
 export default function HttpAgentFormPage() {
   const navigate = useNavigate();
@@ -220,16 +220,16 @@ export default function HttpAgentFormPage() {
 
   if (!agentId || !Number.isFinite(agentId)) {
     return (
-      <AgentPageShell title={pageTitle} onBack={() => navigate('/agentManagement')}>
+      <PageShell title={pageTitle} onBack={() => navigate('/agentManagement')}>
         <div className="agent-section" style={{ padding: 48, textAlign: 'center' }}>
           未找到 Agent
         </div>
-      </AgentPageShell>
+      </PageShell>
     );
   }
 
   return (
-    <AgentPageShell title={pageTitle} onBack={() => navigate(-1)}>
+    <PageShell title={pageTitle} onBack={() => navigate(-1)}>
       <Spin spinning={loading}>
         <Form
           form={form}
@@ -251,7 +251,7 @@ export default function HttpAgentFormPage() {
             <Input />
           </Form.Item>
 
-          <AgentSection title="基本信息">
+          <PageSection title="基本信息">
             {agentName ? (
               <Form.Item label="名称">
                 <span className="agent-owner-text">{agentName}</span>
@@ -310,11 +310,11 @@ export default function HttpAgentFormPage() {
                 style={{ width: '100%' }}
               />
             </Form.Item>
-          </AgentSection>
+          </PageSection>
 
-          <AgentSection title="支持的接口">
+          <PageSection title="支持的接口">
             <PostmanInvokeEditor value={invokeValue} onChange={setInvokeValue} />
-          </AgentSection>
+          </PageSection>
 
           <div className="agent-footer-bar">
             <Button onClick={() => navigate(-1)}>取消</Button>
@@ -324,6 +324,6 @@ export default function HttpAgentFormPage() {
           </div>
         </Form>
       </Spin>
-    </AgentPageShell>
+    </PageShell>
   );
 }

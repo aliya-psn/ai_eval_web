@@ -1,29 +1,31 @@
 import type { ReactNode } from 'react';
 import dayjs from 'dayjs';
 import { ArrowLeft } from 'lucide-react';
-import './agent.css';
+import './page.css';
 
-interface AgentPageShellProps {
+interface PageShellProps {
   children: ReactNode;
   title: string;
+  subtitle?: string;
   extra?: ReactNode;
   onBack?: () => void;
   backLabel?: string;
 }
 
-export function formatAgentTime(value?: string | null): string {
+export function formatTime(value?: string | null): string {
   if (!value) return '-';
   const d = dayjs(value);
   return d.isValid() ? d.format('YYYY-MM-DD HH:mm:ss') : value;
 }
 
-export function AgentPageShell({
+export function PageShell({
   children,
   title,
+  subtitle,
   extra,
   onBack,
   backLabel,
-}: AgentPageShellProps) {
+}: PageShellProps) {
   const resolvedBackLabel = backLabel ?? '返回';
 
   return (
@@ -37,7 +39,10 @@ export function AgentPageShell({
                 {resolvedBackLabel}
               </button>
             ) : null}
-            <h1 className="agent-title">{title}</h1>
+            <div className="agent-page-header-text">
+              <h1 className="agent-title">{title}</h1>
+              {subtitle ? <p className="agent-subtitle">{subtitle}</p> : null}
+            </div>
           </div>
           {extra ? <div className="agent-page-header-extra">{extra}</div> : null}
         </header>
@@ -47,7 +52,7 @@ export function AgentPageShell({
   );
 }
 
-export function AgentSection({
+export function PageSection({
   title,
   extra,
   children,
@@ -67,12 +72,8 @@ export function AgentSection({
   );
 }
 
-// agent name 简称
-export function agentInitials(name?: string): string {
+// 名称简称
+export function nameInitials(name?: string): string {
   if (!name) return 'A';
-  // const parts = name.trim().split(/[\s_-]+/).filter(Boolean);
-  // if (parts.length >= 2) {
-  //   return `${parts[0][0]}${parts[1][0]}`.slice(0, 2);
-  // }
   return name.slice(0, 2);
 }

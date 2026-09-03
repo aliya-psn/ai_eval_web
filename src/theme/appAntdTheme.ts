@@ -31,11 +31,13 @@ export const appAntdTheme: ThemeConfig = {
   },
   components: {
     Table: {
-      headerBg: '#f1f5f9',
-      rowHoverBg: '#f8fafc',
-      cellPaddingBlock: 12,
+      headerBg: '#f8fafc',
+      rowHoverBg: '#f5f8ff',
+      cellPaddingBlock: 14,
       cellPaddingInline: 16,
-      headerBorderRadius: 8,
+      headerBorderRadius: 10,
+      headerColor: 'rgba(9, 25, 64, 0.6)',
+      borderColor: '#f1f5f9',
     },
     Button: {
       primaryShadow: '0 1px 2px rgba(12, 98, 255, 0.12)',

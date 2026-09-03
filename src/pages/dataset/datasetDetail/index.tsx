@@ -11,12 +11,8 @@ import {
 } from '@ant-design/icons';
 import { datasetApi } from '@/api/langfuse';
 import type { Dataset, DatasetStatus } from '@/types/dataset';
-import {
-  AgentPageShell,
-  AgentSection,
-  agentInitials,
-} from '@/pages/agentManagement/AgentPageShell';
-import '@/pages/agentManagement/agent.css';
+import { PageShell, PageSection, nameInitials } from '@/components/page/PageShell';
+import '@/components/page/page.css';
 import { formatDatasetTime, previewJson, prettyJson } from '@/pages/dataset/datasetManagement/utils';
 import { ExperimentsPanel } from './experiments/ExperimentsPanel';
 import { RunExperimentModal } from './experiments/RunExperimentModal';
@@ -119,16 +115,16 @@ export default function DatasetDetailPage() {
 
   if (!datasetName) {
     return (
-      <AgentPageShell title={"数据集"} onBack={() => navigate('/datasetManagement')}>
+      <PageShell title={"数据集"} onBack={() => navigate('/datasetManagement')}>
         <div className="agent-section">
           <Empty style={{ padding: 48 }} description={"缺少数据集名称"} />
         </div>
-      </AgentPageShell>
+      </PageShell>
     );
   }
 
   return (
-    <AgentPageShell
+    <PageShell
       title={displayName}
       onBack={() => navigate('/datasetManagement')}
       extra={
@@ -148,9 +144,9 @@ export default function DatasetDetailPage() {
             <Empty style={{ padding: 48 }} description={"未找到该数据集"} />
           </div>
         ) : dataset ? (
-          <AgentSection title={"基本信息"}>
+          <PageSection title={"基本信息"}>
             <div className="agent-detail-hero">
-              <div className="agent-detail-avatar">{agentInitials(dataset.name)}</div>
+              <div className="agent-detail-avatar">{nameInitials(dataset.name)}</div>
               <div>
                 <div style={{ fontSize: 18, fontWeight: 700, color: '#091940' }}>
                   {dataset.name}
@@ -195,7 +191,7 @@ export default function DatasetDetailPage() {
                 <SchemaJsonPreview value={dataset.metadata} />
               </Descriptions.Item>
             </Descriptions>
-          </AgentSection>
+          </PageSection>
         ) : null}
       </Spin>
 
@@ -302,6 +298,6 @@ export default function DatasetDetailPage() {
           setExperimentsRefreshKey((k) => k + 1);
         }}
       />
-    </AgentPageShell>
+    </PageShell>
   );
 }

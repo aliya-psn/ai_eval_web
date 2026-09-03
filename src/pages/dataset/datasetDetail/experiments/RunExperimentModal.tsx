@@ -25,7 +25,7 @@ import type { HttpAgentListItem } from '@/types/adminAgent';
 import type { Dataset } from '@/types/dataset';
 import type { SkillListItem } from '@/types/skill';
 import { formatDatasetTime } from '@/pages/dataset/datasetManagement/utils';
-import { formatAgentTime } from '@/pages/agentManagement/AgentPageShell';
+import { formatTime } from '@/components/page/PageShell';
 import { resolveNacosNamespaceId } from '@/lib/resolve-nacos-namespace';
 import { EvaluatorAgentSelector } from './EvaluatorAgentSelector';
 
@@ -649,7 +649,7 @@ export function RunExperimentModal({
                 </div>
                 <div style={{ marginTop: 4 }}>
                   <Typography.Text type="secondary">{"创建时间"}：</Typography.Text>
-                  {formatAgentTime(selectedVersionOpt.createdTime)}
+                  {formatTime(selectedVersionOpt.createdTime)}
                 </div>
               </div>
             ) : null}
