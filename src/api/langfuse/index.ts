@@ -8,4 +8,5 @@
 export { langfuseRequest, langfuseClient, callLangfuseTrpc } from './request';
 export type { LangfuseHttpMethod, LangfuseRequestOptions } from './request';
 export { datasetApi } from './dataset';
+export { evaluatorApi } from './evaluator';
 export { loadLangfuseProjectName, getLangfuseProjectName } from './project';

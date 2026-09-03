@@ -54,6 +54,7 @@ export function Sidebar() {
         { key: 'skillRegistry', label: 'Skill 管理', path: '/skill' },
         { key: 'agentRegistry', label: 'Agent 管理', path: '/agentManagement' },
         { key: 'datasetRegistry', label: '数据集管理', path: '/datasetManagement' },
+        { key: 'evaluatorRegistry', label: '评估器管理', path: '/evaluatorManagement' },
       ],
     });
   }
