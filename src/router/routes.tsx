@@ -103,6 +103,18 @@ export const routes: RouteObject[] = [
           },
         ],
       },
+      {
+        path: 'trace',
+        element: lazyPage(() => import('@/pages/trace/TraceListPage')),
+      },
+      {
+        path: 'trace/detail',
+        element: lazyPage(() => import('@/pages/trace/TraceDetailPage')),
+      },
+      {
+        path: 'trace/observation',
+        element: lazyPage(() => import('@/pages/trace/ObservationPage')),
+      },
     ],
   },
 

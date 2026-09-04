@@ -64,6 +64,7 @@ export function Sidebar() {
       icon: <BarChart3 size={18} />,
       defaultOpen: true,
       children: [
+        { key: 'traceRegistry', label: 'Trace 追踪', path: '/trace' },
         // { key: 'reportRegistry', label: '测试报告', path: '/report' },
       ],
     });
@@ -93,6 +94,7 @@ export function Sidebar() {
       datasetRegistry: <Database size={16} />,
       evaluatorRegistry: <ClipboardCheck size={16} />,
       reportRegistry: <BarChart3 size={16} />,
+      traceRegistry: <BarChart3 size={16} />,
     };
     return map[key] || <Sparkles size={16} />;
   };

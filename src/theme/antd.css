@@ -243,8 +243,17 @@
   padding: 2px 11px !important;
 }
 
+/*
+ * antd 6：clear 图标（叉号）与 arrow 是绝对定位，inset-inline-end 相对
+ * .ant-select 根节点的 padding 边缘计算。若用 padding-inline 覆盖 multiple
+ * 模式的 padding-inline-start（antd 默认 4px），content 会右移导致 clear
+ * 与内容错位。因此仅覆盖 padding-inline-end，start 保留 antd 默认值。
+ */
 .app-antd .ant-select:not(.ant-select-borderless):not(.ant-select-customize-input) {
-  padding-inline: 11px !important;
+  padding-inline-end: 11px !important;
+}
+.app-antd .ant-select-single:not(.ant-select-borderless):not(.ant-select-customize-input) {
+  padding-inline-start: 11px !important;
 }
 
 /*

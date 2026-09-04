@@ -134,27 +134,27 @@ export default function DatasetExperimentDetailPage() {
           </span>
         ),
       },
-      // {
-      //   title: "Trace",
-      //   dataIndex: 'traceId',
-      //   width: 72,
-      //   align: 'center',
-      //   render: (traceId: string, row) =>
-      //     traceId ? (
-      //       <span
-      //         className="agent-table-link"
-      //         title={
-      //           row.observationId
-      //             ? `Trace: ${traceId}, Observation: ${row.observationId}`
-      //             : `Trace: ${traceId}`
-      //         }
-      //       >
-      //         <ApartmentOutlined />
-      //       </span>
-      //     ) : (
-      //       '-'
-      //     ),
-      // },
+      {
+        title: "Trace",
+        dataIndex: 'traceId',
+        width: 110,
+        align: 'center',
+        render: (traceId: string) =>
+          traceId ? (
+            <button
+              type="button"
+              className="agent-table-link"
+              title={traceId}
+              onClick={() =>
+                navigate(`/trace/detail?traceId=${encodeURIComponent(traceId)}`)
+              }
+            >
+              查看 Trace
+            </button>
+          ) : (
+            '-'
+          ),
+      },
       {
         title: "耗时",
         dataIndex: 'latency',

@@ -9,4 +9,5 @@ export { langfuseRequest, langfuseClient, callLangfuseTrpc } from './request';
 export type { LangfuseHttpMethod, LangfuseRequestOptions } from './request';
 export { datasetApi } from './dataset';
 export { evaluatorApi } from './evaluator';
+export { traceApi, buildObservationTree } from './trace';
 export { loadLangfuseProjectName, getLangfuseProjectName } from './project';

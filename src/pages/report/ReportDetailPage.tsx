@@ -116,6 +116,28 @@ export default function ReportDetailPage() {
         ),
       },
       {
+        title: 'Trace',
+        dataIndex: 'traceId',
+        width: 90,
+        align: 'center',
+        render: (traceId: string) =>
+          traceId ? (
+            <button
+              type="button"
+              className="agent-table-link"
+              title={traceId}
+              onClick={(e) => {
+                e.stopPropagation();
+                navigate(`/trace/detail?traceId=${encodeURIComponent(traceId)}`);
+              }}
+            >
+              查看 Trace
+            </button>
+          ) : (
+            '-'
+          ),
+      },
+      {
         title: '耗时',
         dataIndex: 'latency',
         width: 100,
