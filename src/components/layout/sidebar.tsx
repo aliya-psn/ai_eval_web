@@ -1,6 +1,7 @@
 import { useCallback } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import {
+  BarChart3,
   Bot,
   ChevronDown,
   ChevronRight,
@@ -54,7 +55,16 @@ export function Sidebar() {
         { key: 'skillRegistry', label: 'Skill 管理', path: '/skill' },
         { key: 'agentRegistry', label: 'Agent 管理', path: '/agentManagement' },
         { key: 'datasetRegistry', label: '数据集管理', path: '/datasetManagement' },
-        { key: 'evaluatorRegistry', label: '评估器管理', path: '/evaluatorManagement' },
+        // { key: 'evaluatorRegistry', label: '评估器管理', path: '/evaluatorManagement' },
+      ],
+    });
+    coreItems.push({
+      key: 'analysis',
+      label: '测评结果分析',
+      icon: <BarChart3 size={18} />,
+      defaultOpen: true,
+      children: [
+        // { key: 'reportRegistry', label: '测试报告', path: '/report' },
       ],
     });
   }
@@ -82,6 +92,7 @@ export function Sidebar() {
       skillRegistry: <Wrench size={16} />,
       datasetRegistry: <Database size={16} />,
       evaluatorRegistry: <ClipboardCheck size={16} />,
+      reportRegistry: <BarChart3 size={16} />,
     };
     return map[key] || <Sparkles size={16} />;
   };

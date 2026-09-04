@@ -211,7 +211,7 @@ export default function EvaluatorListPage() {
       }
     >
       <div className="agent-panel">
-        <div className="agent-toolbar" style={{ padding: '0 0 12px 0' }}>
+        <div className="agent-toolbar" style={{ padding: '12px 0 12px 0' }}>
           <Space wrap size={10}>
             <Input
               allowClear

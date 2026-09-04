@@ -89,6 +89,20 @@ export const routes: RouteObject[] = [
         path: 'evaluatorDetail',
         element: lazyPage(() => import('@/pages/evaluators/EvaluatorDetailPage')),
       },
+      {
+        path: 'report',
+        element: lazyPage(() => import('@/pages/report/ReportListPage')),
+        children: [
+          {
+            path: 'detail',
+            element: lazyPage(() => import('@/pages/report/ReportDetailPage')),
+          },
+          {
+            path: 'compare',
+            element: lazyPage(() => import('@/pages/report/ReportComparePage')),
+          },
+        ],
+      },
     ],
   },
 

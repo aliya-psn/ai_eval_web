@@ -188,6 +188,74 @@
   border-bottom: 1px solid var(--agent-line-soft);
 }
 
+/* 报告页：数据集树 + 执行记录 分栏布局，留白更舒适 */
+.report-tree {
+  padding: 6px 8px 16px;
+}
+.report-tree .ant-tree {
+  background: transparent;
+}
+.report-tree .ant-tree-treenode {
+  padding: 0;
+}
+.report-tree .ant-tree-node-content-wrapper {
+  border-radius: 8px;
+  min-height: 38px;
+  display: flex;
+  align-items: center;
+}
+.report-tree .ant-tree-node-content-wrapper .ant-tree-iconEle {
+  line-height: 38px;
+}
+.report-tree .ant-tree-node-content-wrapper .ant-tree-title {
+  padding: 0 0 0 2px;
+  line-height: 38px;
+}
+.report-tree .ant-tree-switcher {
+  height: 38px;
+  line-height: 38px;
+}
+.report-panel {
+  padding: 0;
+}
+.report-panel-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 16px 12px;
+  border-bottom: 1px solid var(--agent-line-soft);
+}
+/* 报告页分栏：固定高度填满视口剩余区域，内容内部滚动，不随内容增高 */
+.report-split {
+  display: flex;
+  gap: 20px;
+  align-items: stretch;
+  height: calc(100vh - 150px);
+  min-height: 420px;
+}
+.report-col {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+}
+.report-col-scroll {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+}
+/* 详情 / 对比 浮层：覆盖内容区（列表保持挂载在下方），内部滚动 */
+.report-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 40;
+  background: #f8fafc;
+  overflow: auto;
+  border-radius: 12px;
+  padding: 20px;
+}
+
 .agent-section {
   background: var(--agent-surface);
   border: 1px solid var(--agent-line-soft);
